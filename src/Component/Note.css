@@ -1,0 +1,7 @@
+.no_completada{
+    text-decoration:none;
+}
+
+.completada{
+    text-decoration: line-through;
+}
