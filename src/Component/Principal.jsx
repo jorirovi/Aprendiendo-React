@@ -18,27 +18,35 @@ function Principal() {
     ]
     
     const [tasks, setTasks] = useState(notes)
-    const [hecha, setHecha] = useState(false)
+    const [tarea, setTarea] = useState('')
 
     const addNote = () => {
-        setTasks([...tasks, {id: uuidv4(), task: 'Another Task', completed: hecha}])
-        console.log(tasks)
+        setTasks([...tasks, {id: uuidv4(), task: tarea, completed: false}])
+        setTarea('')
     }
     const deleteNote = (id, e) => {
         //setTasks(tasks.filter(t => t.id !== id))
         e.stopPropagation()
-        setHecha(!hecha)
         setTasks(tasks.map(task => 
             task.id === id
-                ? {...task, completed: hecha}
+                ? {...task, completed: !task.completed}
                 : task
-        ))
-        
+        ))   
+    }
+    const handleChange = (e) => {
+        setTarea(e.target.value)
     }
     return (
         <div>
+            <h1>Listado de Tareas</h1>
+            <div>
+                <span>Nueva Terea: </span>
+                <input type="text" value={tarea} onChange={handleChange}/>
+                <button onClick={addNote}>+</button>
+            </div>
+            
             <Notes task={tasks} onDelete={deleteNote} />
-            <button onClick={addNote}>Add Task</button>
+            
         </div>
     )
     
